@@ -4,10 +4,13 @@
 {
     using System.IO;
     using System.Windows.Forms;
+    using UglyToad.PdfPig;
     public partial class Form1 : Form
     {
+        private string filecontent = "";
         public Form1()
         {
+
             InitializeComponent();
         }
 
@@ -15,47 +18,79 @@
         {
 
         }
-        private string filecontent = "";
+        
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog islam = new OpenFileDialog();
-            islam.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            islam.Filter = "Text Files (*.txt)|*.txt|PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*";
+
+
 
             if (islam.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = islam.FileName;
-                filecontent = File.ReadAllText(islam.FileName);
                 listBox1.Items.Clear();
+                string fileExtension = Path.GetExtension(islam.FileName);
+                if (fileExtension == ".txt")
+                {
+
+                    using (StreamReader sr = new StreamReader(islam.FileName))
+                    {
+                        filecontent = sr.ReadToEnd();
+                    }
+                }
+                else if (fileExtension == ".pdf")
+                {
+                    using (PdfDocument document = PdfDocument.Open(islam.FileName))
+                    {
+                        filecontent = string.Join(Environment.NewLine,document.GetPages().Select(page => page.Text));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("الملف غير مدعوم", "Eror", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             string search = textBox2.Text;
-
-
             if (string.IsNullOrEmpty(filecontent))
             {
-                MessageBox.Show("يرجى فتح ملف أولاً.");
+                MessageBox.Show("يرجي فتح الملف اولا", "Eror", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (filecontent.Contains(search))
-            {
-                var foundLines = filecontent.Split(new[] { Environment.NewLine }, StringSplitOptions.None)
-                                           .Where(line => line.Contains(search))
-                                           .ToList();
+                using (StringReader sr = new StringReader(filecontent))
 
-                foreach (var line in foundLines)
                 {
-                    listBox1.Items.Add(line); // إضافة الأسطر التي تحتوي على النص
+                    string line;
+                    bool found = false;
+                    listBox1.Items.Clear();
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.Contains(search))
+                    {
+                        listBox1.Items.Add(line);
+                        found = true;
+                    }
                 }
 
-                MessageBox.Show("تم العثور على النص!");
-            }
-            else
-            {
-                MessageBox.Show("النص غير موجود في الملف.");
-            }
+                    if (found)
+                    {
+                      MessageBox.Show("تم العثور علي النص", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                      MessageBox.Show("لم يتم العثور علي النص", "Eror", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+
+
+                    
+
+                }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -63,6 +98,7 @@
             textBox1.Clear();
             listBox1.Items.Clear();
             filecontent = "";
+            textBox2.Clear();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,6 +109,11 @@
         private void button4_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

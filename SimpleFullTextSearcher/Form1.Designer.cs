@@ -65,14 +65,15 @@
             // 
             textBox1.Location = new Point(221, 66);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(325, 27);
+            textBox1.Size = new Size(615, 27);
             textBox1.TabIndex = 2;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(221, 133);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(325, 27);
+            textBox2.Size = new Size(615, 27);
             textBox2.TabIndex = 3;
             // 
             // button1
@@ -80,7 +81,7 @@
             button1.BackColor = Color.Black;
             button1.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.LightGreen;
-            button1.Location = new Point(567, 62);
+            button1.Location = new Point(868, 62);
             button1.Name = "button1";
             button1.Size = new Size(94, 39);
             button1.TabIndex = 4;
@@ -93,7 +94,7 @@
             button2.BackColor = Color.Black;
             button2.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.LightGreen;
-            button2.Location = new Point(567, 128);
+            button2.Location = new Point(868, 128);
             button2.Name = "button2";
             button2.Size = new Size(94, 38);
             button2.TabIndex = 5;
@@ -129,7 +130,7 @@
             listBox1.FormattingEnabled = true;
             listBox1.Location = new Point(87, 202);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(581, 244);
+            listBox1.Size = new Size(875, 244);
             listBox1.TabIndex = 10;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
@@ -138,7 +139,7 @@
             button4.BackColor = Color.Black;
             button4.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             button4.ForeColor = Color.LightGreen;
-            button4.Location = new Point(487, 469);
+            button4.Location = new Point(843, 469);
             button4.Name = "button4";
             button4.Size = new Size(94, 38);
             button4.TabIndex = 11;
@@ -151,7 +152,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Linen;
-            ClientSize = new Size(765, 543);
+            ClientSize = new Size(1012, 543);
             Controls.Add(button4);
             Controls.Add(listBox1);
             Controls.Add(button3);
