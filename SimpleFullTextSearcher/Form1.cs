@@ -29,7 +29,7 @@
             if (islam.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = islam.FileName;
-                listBox1.Items.Clear();
+                textBox3.Clear();
                 string fileExtension = Path.GetExtension(islam.FileName);
                 if (fileExtension == ".txt")
                 {
@@ -66,12 +66,12 @@
                 {
                     string line;
                     bool found = false;
-                    listBox1.Items.Clear();
+                   textBox3.Clear();
                 while ((line = sr.ReadLine()) != null)
                 {
                     if (line.Contains(search))
                     {
-                        listBox1.Items.Add(line);
+                        textBox3.AppendText(line + Environment.NewLine);
                         found = true;
                     }
                 }
@@ -96,7 +96,7 @@
         private void button3_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
-            listBox1.Items.Clear();
+            textBox3.Clear();
             filecontent = "";
             textBox2.Clear();
         }
